@@ -1,8 +1,14 @@
 package application;
 
+
 import java.io.FileReader;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
+
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import java.io.File;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -11,6 +17,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.stage.Stage;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -18,6 +25,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
@@ -33,10 +41,10 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
-
+	static double departTime=1;
 	@Override
 	public void start(Stage arg0) throws Exception {
-//
+		//
 		// Global Variables
 		// global settings to be uses throughout the program
 		String titleOfWindow = "Fahrkartenautomat der PB";
@@ -59,12 +67,16 @@ public class Main extends Application {
 		String saveFile = "Staedte.txt";
 
 		// CITIES AND DISTANCES - ARRAYS
-		FileReader fileReader = new FileReader(saveFile);
+		ClassLoader classLoader = ClassLoader.getSystemClassLoader();
+		 
+		File file = new File(classLoader.getResource(saveFile).getFile());
+		FileReader fileReader = new FileReader(file);
 		char[] carrierChar = new char[10000000];
+	
 		fileReader.read(carrierChar);
 		String carrierStringLong = new String(carrierChar);
 
-		String[] carrierStringSplit = carrierStringLong.split("\r|;");
+		String[] carrierStringSplit = carrierStringLong.split("\r\n|;");
 
 		// define length of arrays
 		String[] cities = new String[carrierStringSplit.length / 2];
@@ -107,6 +119,12 @@ public class Main extends Application {
 		logoGUI3.setFitWidth(imageSize);
 		logoGUI3.setPreserveRatio(true);
 		logoGUI3.setSmooth(true);
+
+		// Image GUI4
+		ImageView logoGUI4 = new ImageView(img);
+		logoGUI4.setFitWidth(imageSize);
+		logoGUI4.setPreserveRatio(true);
+		logoGUI4.setSmooth(true);
 
 		// Background
 		BackgroundFill background_fill = new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY);
@@ -233,10 +251,10 @@ public class Main extends Application {
 		topGUI3.getChildren().addAll(titleGUI3, topRightGUI3);
 		topGUI3.setAlignment(Pos.TOP_CENTER);
 		borderPaneGUI3.setTop(topGUI3);
-		
+
 		// CENTER
 		VBox centerGUI3 = new VBox(20);
-		
+
 		String[] klassen = { "Erstklassig", "Zweitklassig" };
 		ComboBox klassenCombo = new ComboBox(FXCollections.observableArrayList(klassen));
 		klassenCombo.setPromptText("Klasse");
@@ -262,17 +280,79 @@ public class Main extends Application {
 		bottomGUI3.setAlignment(Pos.TOP_CENTER);
 		borderPaneGUI3.setBottom(bottomGUI3);
 
-		//window setup
+		// GUI 4 Philippe
+
+		// GUI 4 BorderPane
+		BorderPane borderPaneGUI4 = new BorderPane();
+		borderPaneGUI4.setPadding(new Insets(5));
+		borderPaneGUI4.setBackground(background);
+		borderPaneGUI4.setPadding(new Insets(30));
+
+		// TOP
+		HBox topGUI4 = new HBox();
+		HBox.setHgrow(topGUI4, Priority.ALWAYS);
+		HBox topRightGUI4 = new HBox(30);
+		HBox.setHgrow(topRightGUI4, Priority.ALWAYS);
+		Label titleGUI4 = new Label(titleOfGUI);
+		titleGUI4.setFont(Font.font(fontGlobal, FontWeight.BOLD, fontSizeGlobal));
+		titleGUI4.setTextFill(fontCollorGlobal);
+		topRightGUI4.getChildren().addAll(logoGUI4);
+		topRightGUI4.setAlignment(Pos.TOP_RIGHT);
+		topGUI4.getChildren().addAll(titleGUI4, topRightGUI4);
+		topGUI4.setAlignment(Pos.TOP_CENTER);
+		borderPaneGUI4.setTop(topGUI4);
+
+		// CENTER
+		VBox center4 = new VBox(20);
+		Label depart4 = new Label("Abfahrt von " + destLoc + " um: " + depTime + "h");
+		depart4.setFont(Font.font(fontGlobal, FontWeight.BOLD, fontSizeGlobal));
+		depart4.setTextFill(fontCollorGlobal);
+		Label dest4 = new Label("Ankunft in " + departLoc + " um: " + destTime + "h");
+		dest4.setFont(Font.font(fontGlobal, FontWeight.BOLD, fontSizeGlobal));
+		dest4.setTextFill(fontCollorGlobal);
+		Label klasse4 = new Label();
+		klasse4.setFont(Font.font(fontGlobal, FontWeight.BOLD, fontSizeGlobal));
+		klasse4.setTextFill(fontCollorGlobal);
+		Label age4 = new Label("");
+		age4.setFont(Font.font(fontGlobal, FontWeight.BOLD, fontSizeGlobal));
+		age4.setTextFill(fontCollorGlobal);
+		center4.getChildren().addAll(depart4, dest4, klasse4, age4);
+		center4.setAlignment(Pos.CENTER);
+		borderPaneGUI4.setCenter(center4);
+
+		// BOTTOM
+		HBox bottom4 = new HBox(20);
+		Button btnConfirmGui4 = new Button("Fahrkarte drucken");
+		btnConfirmGui4.setTextFill(fontCollorGlobal);
+		btnConfirmGui4.setFont(Font.font(fontGlobal, FontWeight.BOLD, fontSizeGlobal));
+		bottom4.getChildren().addAll(btnConfirmGui4);
+		bottom4.setAlignment(Pos.TOP_CENTER);
+		borderPaneGUI4.setBottom(bottom4);
+
+		// BSOD
+
+		BorderPane bsodScene = new BorderPane();
+		Image bsodImage = new Image("BSOD.png");
+		ImageView bsodView = new ImageView(bsodImage);
+		bsodView.setFitWidth(1920);
+		bsodView.setPreserveRatio(true);
+		bsodView.setSmooth(true);
+		bsodScene.setCenter(bsodView);
+
+		// window setup
 		Scene gui1 = new Scene(borderPaneGUI1, sizeH, sizeV);
 		Scene gui2 = new Scene(borderPaneGUI2, sizeH, sizeV);
 		Scene gui3 = new Scene(borderPaneGUI3, sizeH, sizeV);
+		Scene gui4 = new Scene(borderPaneGUI4, sizeH, sizeV);
+		Scene death = new Scene(bsodScene, sizeH, sizeV);
+
 		window.setScene(gui1);
 		window.setTitle(titleOfWindow);
 		window.show();
-
-		//button setup
+		
+		// button setup
 		btnConfirmGui1.setOnAction(new EventHandler<ActionEvent>() {
-
+		
 			@Override
 			public void handle(ActionEvent arg0) {
 
@@ -281,15 +361,16 @@ public class Main extends Application {
 				int indexPositionZiel = positionOfStringInArray(cities, (String) destCombo.getValue());
 				double duration = Math
 						.sqrt(Math.pow(((distances[indexPositionZiel] - distances[indexPositionAnkunft]) / 300.0), 2));
-				double departTime = convertToTimeDouble((int) (Math.random() * 24)) + (Math.random() * 60 / 100);
-				String durationS = displayLikeClock(departTime);
+				 departTime = ((int) (Math.random() * 24)) + (Math.random() * 60 / 100);
+				//String durationS = displayLikeClock(departTime);
 
-				depart.setText(
-						"Abfahrt von " + ankunftCombo.getValue() + " um: " + formatDoubleToString(departTime) + "h");
-				dest.setText("Ankunft in " + destCombo.getValue() + " um: "
-						+ formatDoubleToString(duration + departTime) + "h");
+				depart.setText("Abfahrt von " + ankunftCombo.getValue() + " um: " + displayDoubleLikeClock(departTime));
+				dest.setText("Ankunft in " + destCombo.getValue() + " um: "+ displayDoubleLikeClock(duration + departTime));
 
-				travelTime.setText("Fahrtzeit " + formatDoubleToString(duration) + "h");
+				travelTime.setText("Fahrtzeit " + convertToTimeString(duration));
+			//	travelTime.setText("Fahrtzeit " + formatDoubleToString( duration) + "h");
+				
+				
 				System.out.print(cities[indexPositionAnkunft] + " to " + cities[indexPositionZiel] + "\t");
 				System.out.print("duration" + duration);
 				System.out.println(
@@ -313,29 +394,62 @@ public class Main extends Application {
 		});
 
 		btnConfirmGui3.setOnAction(new EventHandler<ActionEvent>() {
-
+			
 			@Override
 			public void handle(ActionEvent event) {
-				window.setScene(gui1);
+
+				int indexPositionAnkunft = positionOfStringInArray(cities, (String) ankunftCombo.getValue());
+				int indexPositionZiel = positionOfStringInArray(cities, (String) destCombo.getValue());
+				double duration = Math
+						.sqrt(Math.pow(((distances[indexPositionZiel] - distances[indexPositionAnkunft]) / 300.0), 2));
+				
+				//String durationS = displayLikeClock(departTime);
+
+				depart4.setText("Von " + ankunftCombo.getValue() + " um: " + displayDoubleLikeClock(departTime));
+				dest4.setText("Ankunft in " + destCombo.getValue() + " um: "
+						+ displayDoubleLikeClock( duration + departTime));
+				klasse4.setText("Sie fahren: "+(String) klassenCombo.getValue());
+				age4.setText((String) "Sie sind ein: "+ altersStufeCombo.getValue());
+
+				window.setScene(gui4);
 
 				// change image
-				logoGUI1.setImage(new Image(images[(int) (Math.random() * images.length)]));
+				logoGUI4.setImage(new Image(images[(int) (Math.random() * images.length)]));
+
+			}
+		});
+
+		btnConfirmGui4.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				window.setScene(death);
+				window.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+				window.setFullScreenExitHint("");
+				death.setCursor(Cursor.NONE);
+		
+				String musicFile = "bsod.mp3";     // For example
+				//File musicFile = new File(classLoader.getResource("bsod.mp3").getFile());
+				Media sound = new Media(new File(musicFile).toURI().toString());
+				MediaPlayer mediaPlayer = new MediaPlayer(sound);
+				mediaPlayer.play();
+				
+				window.setFullScreen(true);
+				
 
 			}
 		});
 
 	}// end start
-	
-	
 
 	// takes double and gives it back as formatted String XX.xx
-	public String formatDoubleToString(double input) {
+	public static String formatDoubleToString(double input) {
 		String formatedString;
 		formatedString = String.format("%.2f", (double) input);
 		return formatedString;
 	}
 
-	// PLEASE COMMENT!!
+	// OUT OF ORDER: looks if String-input is present in array
 	public static boolean weHave(String input, String[] array) {
 		boolean check = false;
 		List<String> list = Arrays.asList(array);
@@ -355,19 +469,63 @@ public class Main extends Application {
 	}// end positionOf - Method
 
 	// PLEASE COMMENT!!
-	public static String displayLikeClock(double time) {
+	public static String displayDoubleLikeClock(double time) {
 		String timeAsClock = "did not work";
-		int timeH = (int) time;
-		int timeMin = (int) ((time - timeH) * 60 * 100);
-		timeAsClock = timeH + ":" + timeMin;
+		long hour = ((long)time)%24;
+		int carryHour = (int)((time-(long)time)*100/60);
+		double min = (time-(int)time)%0.6;
+		hour = hour + carryHour;
+		
+		
+		if ((int)(min*100)<10) {
+			timeAsClock = hour + ":0" + (int)(min*100) +"h";
+		}else {
+			timeAsClock = hour + ":" + (int)(min*100) +"h";
+		}
+		
 		return timeAsClock;
 	}
 
-	// PLEASE COMMENT!!
-	public static double convertToTimeDouble(double time) {
-		int timeH = (int) time;
-		double timeMin = (time - timeH) * 60;
-		return timeH + timeMin;
+	// converts
+	public static String convertToTimeString(double time) {
+		String timeAsClock = "did not work";
+		long hour = ((long)time);
+		int carryHour = (int)((time-(long)time)*100/60);
+		double min = (time-(long)time)%0.6;
+		hour = hour + carryHour;
+		
+		String[]dayToYear= new String[4];
+		long year = hour/8760;
+		hour -= year*8760;
+		long month = hour/730;
+		hour -= month*730;
+		long week = hour/168;
+		hour -= week*168;
+		long day = hour/24;
+		hour -= day*24;
+		
+		
+		dayToYear[0]= year+"Years ";//year 
+		dayToYear[1]= month+"Months ";//month
+		dayToYear[2]= week+"Weeks ";//week
+		dayToYear[3]= day+"Days ";//week
+		timeAsClock="";
+		
+		for (int i = 0; i < dayToYear.length; i++) {
+			if (dayToYear[i].charAt(0)!='0') {
+				timeAsClock += dayToYear[i];
+			}
+		}
+		
+		
+		
+		
+		if ((int)(min*100)<10) {
+			timeAsClock += hour%24 + ":0" + (int)(min*100) +"h";
+		}else {
+			timeAsClock += hour%24 + ":" + (int)(min*100) +"h";
+		}
+		return timeAsClock;
 	}
 
 }// end class
