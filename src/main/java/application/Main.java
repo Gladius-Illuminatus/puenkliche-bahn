@@ -468,7 +468,7 @@ public class Main extends Application {
 		return position;
 	}// end positionOf - Method
 
-	// PLEASE COMMENT!!
+	// takes a double and returns a String to make it look like an hour of the day
 	public static String displayDoubleLikeClock(double time) {
 		String timeAsClock = "did not work";
 		long hour = ((long)time)%24;
@@ -486,7 +486,7 @@ public class Main extends Application {
 		return timeAsClock;
 	}
 
-	// converts
+	// takes a double to calculate the time in years to days
 	public static String convertToTimeString(double time) {
 		String timeAsClock = "did not work";
 		long hour = ((long)time);
