@@ -1,7 +1,7 @@
 # Pünktliche-Bahn
 Gruppenarbeit Mechatronik Trinational Descartes: Daniel Ott, André Fuchs, Patrik Lämmle, Philippe Licht
 
-![Titel Bild]( https://github.com/Gladius-Illuminatus/Puenktliche-Bahn/blob/master/PB.png)
+![Titel Bild]( https://github.com/Gladius-Illuminatus/puenkliche-bahn/blob/master/PB.png)
 
 
 
@@ -93,6 +93,7 @@ Als Kunde möchte ich meinen Abfahrts- und Zielort auswählen können, und zum T
 1. Als Kunde möchte ich Abfahrts- und Zielort auswählen können, um die Fahrstrecke zu definieren.
 
 2. Als Kunde möchte ich das Ticket einfach spezifizieren und kaufen können, um keine Zeit zu verlieren.
+
 ## 7. User Rollen
 **Kunde:**
 
@@ -119,9 +120,10 @@ Das wichtigste Ziel ist, dass die Software möglichst fehlerfrei funktioniert.
  
  
 ## 8. Tasks mit Akzeptanzkriterium
-User Story 1
 
-Use Case 1|Abart und Zielort Eingabe|Akzeptanzkriterium
+**User Story 1**
+
+||Abfahrt und Zielort Eingabe|Akzeptanzkriterium
 ------|------|------
 Beschreibung|Der Benutzer kann den Abfahrt- und Zielort eingeben|
 Voraussetzung|GUI Panel 1 Lay-out + Liste der Abfahrt und Zielorte
@@ -134,7 +136,7 @@ Task 4.2|Unit Test 1.2 schreiben|
 
 
 
-Use Case 2|Abfahrt, Ankunftszeit angeben, bestätigen/zurück|Akzeptanzkriterium
+||Abfahrt, Ankunftszeit angeben, bestätigen/zurück|Akzeptanzkriterium
 ------|------|------
 Beschreibung|Der Benutzer sieht die theoretische Abfahrt und Ankunftszeit
 Voraussetzung|GUI Panel 2 Layout + Algorithmus zur Fahrzeit Berechnung
@@ -143,9 +145,9 @@ Task 6|GUI Panel 2 Programmieren|Anzeige funktioniert gemäss Layout + der Butto
 Task 7|Untit Test 2 schreiben
 
 
-User Story 2
+**User Story 2**
 
-Use Case 3|Zugfahrklasse und Alterskategorie auswählen|Akzeptanzkriterium
+||Zugfahrklasse und Alterskategorie auswählen|Akzeptanzkriterium
 ------|------|------
 Beschreibung|Der Benutzer kann zwischen Erst- und Zweitklassig wählen und zwischen Kleingeist, Halbstark und Grossmaul auswählen|
 Voraussetzung|GUI Panel 3 Layout
@@ -156,7 +158,7 @@ Task 10|Unit Test 3 erstellen
 
 
 
-Use Case 4|Ticket kaufen und bezahlen|Akzeptanzkriterium
+||Ticket kaufen und bezahlen|Akzeptanzkriterium
 ------|------|------
 Beschreibung|Der Benutzer kann auf Kaufen tippen und bekommt eine Kaufbestätigung mit Ticket
 Voraussetzung|GUI Panel 4 Layout
@@ -168,16 +170,16 @@ Task 14|Unit Test 4 erstellen
  
  
 ## 9. Story-Points
-![ Story-Points 1]( https://github.com/Gladius-Illuminatus/Puenktliche-Bahn/blob/master/StoryPoints1.png)
+![ Story-Points 1](https://github.com/Gladius-Illuminatus/puenkliche-bahn/blob/master/StoryPoints1.png)
 Erster Durchgang
 
-![ Story-Points 2]( https://github.com/Gladius-Illuminatus/Puenktliche-Bahn/blob/master/StoryPoints2.png)
+![ Story-Points 2](https://github.com/Gladius-Illuminatus/puenkliche-bahn/blob/master/StoryPoints2.png)
 Zweiter Durchgang
 
 
 
 ## 10. Priorisierung
-![Priorisierung]( https://github.com/Gladius-Illuminatus/Puenktliche-Bahn/blob/master/Gewichtung.png)
+![Priorisierung](https://github.com/Gladius-Illuminatus/puenkliche-bahn/blob/master/Gewichtung.png)
  
  
  
@@ -215,23 +217,23 @@ Ticket Ausgabe wird angezeigt||X
 
 Layout 1
 
-![Layout 1](https://github.com/Gladius-Illuminatus/Puenktliche-Bahn/blob/master/GUI%201.%20Layout.png )
+![Layout 1](https://github.com/Gladius-Illuminatus/puenkliche-bahn/blob/master/GUI%201.%20Layout.png)
 
 Layout 2
 
-![Layout 2]( https://github.com/Gladius-Illuminatus/Puenktliche-Bahn/blob/master/GUI%202.%20Layout.png)
+![Layout 2](https://github.com/Gladius-Illuminatus/puenkliche-bahn/blob/master/GUI%202.%20Layout.png)
 
 Layout 3
 
-![Layout 3](https://github.com/Gladius-Illuminatus/Puenktliche-Bahn/blob/master/GUI%203.%20Layout.png )
+![Layout 3](https://github.com/Gladius-Illuminatus/puenkliche-bahn/blob/master/GUI%203.%20Layout.png)
 
 
 Layout 4
 
-![Layout 4](https://github.com/Gladius-Illuminatus/Puenktliche-Bahn/blob/master/GUI%204.%20Layout.png )
+![Layout 4](https://github.com/Gladius-Illuminatus/puenkliche-bahn/blob/master/GUI%204.%20Layout.png)
 
 
 Planungsboard
 
-![Trello](https://github.com/Gladius-Illuminatus/Puenktliche-Bahn/blob/master/Trello.PNG )
+![Trello](https://github.com/Gladius-Illuminatus/puenkliche-bahn/blob/master/Trello.PNG)
 
