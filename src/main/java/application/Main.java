@@ -1,10 +1,6 @@
 package application;
 
-
 import java.io.FileReader;
-import java.io.InputStream;
-import java.util.Arrays;
-import java.util.List;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -22,7 +18,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
@@ -41,7 +36,9 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
-	static double departTime=1;
+
+	static double departTime = 1;
+
 	@Override
 	public void start(Stage arg0) throws Exception {
 		//
@@ -68,11 +65,11 @@ public class Main extends Application {
 
 		// CITIES AND DISTANCES - ARRAYS
 		ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-		 
+
 		File file = new File(classLoader.getResource(saveFile).getFile());
 		FileReader fileReader = new FileReader(file);
 		char[] carrierChar = new char[10000000];
-	
+
 		fileReader.read(carrierChar);
 		String carrierStringLong = new String(carrierChar);
 
@@ -150,28 +147,14 @@ public class Main extends Application {
 		borderPaneGUI1.setTop(topGUI1);
 
 		// CENTER
-		TextArea ankunftsortArea = new TextArea();
 		ComboBox ankunftCombo = new ComboBox(FXCollections.observableArrayList(cities));
 		ankunftCombo.setPromptText("Abfahrtsort");
 		ankunftCombo.setStyle(
 				"-fx-font: " + 100 + "px \"" + fontGlobal + "\";-fx-font-weight: bold;-fx-text-box-border: red;");
 
-		ankunftsortArea.setPromptText("Abfahrtsort");
-		ankunftsortArea.setEditable(true);
-		ankunftsortArea.setPrefHeight(80.0);
-		ankunftsortArea.setPrefWidth(230);
-		ankunftsortArea.setFont(Font.font(fontGlobal, FontWeight.BOLD, fontSizeGlobal));
-
 		ComboBox destCombo = new ComboBox(FXCollections.observableArrayList(cities));
 		destCombo.setPromptText("Zielort");
 		destCombo.setStyle("-fx-font: " + 100 + "px \"" + fontGlobal + "\";-fx-font-weight: bold;");
-
-		TextArea zielortArea = new TextArea();
-		zielortArea.setPromptText("Zielort");
-		zielortArea.setEditable(true);
-		zielortArea.setPrefHeight(80.0);
-		zielortArea.setPrefWidth(230);
-		zielortArea.setFont(Font.font(fontGlobal, FontWeight.BOLD, fontSizeGlobal));
 
 		VBox vPanel1 = new VBox(30, ankunftCombo, destCombo);
 		vPanel1.setAlignment(Pos.CENTER);
@@ -280,7 +263,7 @@ public class Main extends Application {
 		bottomGUI3.setAlignment(Pos.TOP_CENTER);
 		borderPaneGUI3.setBottom(bottomGUI3);
 
-		// GUI 4 Philippe
+		// GUI 4
 
 		// GUI 4 BorderPane
 		BorderPane borderPaneGUI4 = new BorderPane();
@@ -349,10 +332,10 @@ public class Main extends Application {
 		window.setScene(gui1);
 		window.setTitle(titleOfWindow);
 		window.show();
-		
+
 		// button setup
 		btnConfirmGui1.setOnAction(new EventHandler<ActionEvent>() {
-		
+
 			@Override
 			public void handle(ActionEvent arg0) {
 
@@ -361,16 +344,14 @@ public class Main extends Application {
 				int indexPositionZiel = positionOfStringInArray(cities, (String) destCombo.getValue());
 				double duration = Math
 						.sqrt(Math.pow(((distances[indexPositionZiel] - distances[indexPositionAnkunft]) / 300.0), 2));
-				 departTime = ((int) (Math.random() * 24)) + (Math.random() * 60 / 100);
-				//String durationS = displayLikeClock(departTime);
+				departTime = ((int) (Math.random() * 24)) + (Math.random() * 60 / 100);
 
 				depart.setText("Abfahrt von " + ankunftCombo.getValue() + " um: " + displayDoubleLikeClock(departTime));
-				dest.setText("Ankunft in " + destCombo.getValue() + " um: "+ displayDoubleLikeClock(duration + departTime));
+				dest.setText(
+						"Ankunft in " + destCombo.getValue() + " um: " + displayDoubleLikeClock(duration + departTime));
 
 				travelTime.setText("Fahrtzeit " + convertToTimeString(duration));
-			//	travelTime.setText("Fahrtzeit " + formatDoubleToString( duration) + "h");
-				
-				
+
 				System.out.print(cities[indexPositionAnkunft] + " to " + cities[indexPositionZiel] + "\t");
 				System.out.print("duration" + duration);
 				System.out.println(
@@ -394,7 +375,7 @@ public class Main extends Application {
 		});
 
 		btnConfirmGui3.setOnAction(new EventHandler<ActionEvent>() {
-			
+
 			@Override
 			public void handle(ActionEvent event) {
 
@@ -402,14 +383,12 @@ public class Main extends Application {
 				int indexPositionZiel = positionOfStringInArray(cities, (String) destCombo.getValue());
 				double duration = Math
 						.sqrt(Math.pow(((distances[indexPositionZiel] - distances[indexPositionAnkunft]) / 300.0), 2));
-				
-				//String durationS = displayLikeClock(departTime);
 
 				depart4.setText("Von " + ankunftCombo.getValue() + " um: " + displayDoubleLikeClock(departTime));
-				dest4.setText("Ankunft in " + destCombo.getValue() + " um: "
-						+ displayDoubleLikeClock( duration + departTime));
-				klasse4.setText("Sie fahren: "+(String) klassenCombo.getValue());
-				age4.setText((String) "Sie sind ein: "+ altersStufeCombo.getValue());
+				dest4.setText(
+						"Ankunft in " + destCombo.getValue() + " um: " + displayDoubleLikeClock(duration + departTime));
+				klasse4.setText("Sie fahren: " + (String) klassenCombo.getValue());
+				age4.setText((String) "Sie sind ein: " + altersStufeCombo.getValue());
 
 				window.setScene(gui4);
 
@@ -420,22 +399,21 @@ public class Main extends Application {
 		});
 
 		btnConfirmGui4.setOnAction(new EventHandler<ActionEvent>() {
-			
+
 			@Override
 			public void handle(ActionEvent event) {
 				window.setScene(death);
 				window.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
 				window.setFullScreenExitHint("");
 				death.setCursor(Cursor.NONE);
-		
-				String musicFile = "bsod.mp3";     // For example
-				//File musicFile = new File(classLoader.getResource("bsod.mp3").getFile());
+
+				String musicFile = "bsod.mp3"; // For example
+				// File musicFile = new File(classLoader.getResource("bsod.mp3").getFile());
 				Media sound = new Media(new File(musicFile).toURI().toString());
 				MediaPlayer mediaPlayer = new MediaPlayer(sound);
 				mediaPlayer.play();
-				
+
 				window.setFullScreen(true);
-				
 
 			}
 		});
@@ -448,14 +426,6 @@ public class Main extends Application {
 		formatedString = String.format("%.2f", (double) input);
 		return formatedString;
 	}
-
-	// OUT OF ORDER: looks if String-input is present in array
-	public static boolean weHave(String input, String[] array) {
-		boolean check = false;
-		List<String> list = Arrays.asList(array);
-		check = list.contains(input);
-		return check;
-	}// end weHave - Method
 
 	// finds position of given string in array
 	public static int positionOfStringInArray(String[] array, String input) {
@@ -471,59 +441,54 @@ public class Main extends Application {
 	// takes a double and returns a String to make it look like an hour of the day
 	public static String displayDoubleLikeClock(double time) {
 		String timeAsClock = "did not work";
-		long hour = ((long)time)%24;
-		int carryHour = (int)((time-(long)time)*100/60);
-		double min = (time-(int)time)%0.6;
+		long hour = ((long) time) % 24;
+		int carryHour = (int) ((time - (long) time) * 100 / 60);
+		double min = (time - (int) time) % 0.6;
 		hour = hour + carryHour;
-		
-		
-		if ((int)(min*100)<10) {
-			timeAsClock = hour + ":0" + (int)(min*100) +"h";
-		}else {
-			timeAsClock = hour + ":" + (int)(min*100) +"h";
+
+		if ((int) (min * 100) < 10) {
+			timeAsClock = hour + ":0" + (int) (min * 100) + "h";
+		} else {
+			timeAsClock = hour + ":" + (int) (min * 100) + "h";
 		}
-		
+
 		return timeAsClock;
 	}
 
 	// takes a double to calculate the time in years to days
 	public static String convertToTimeString(double time) {
 		String timeAsClock = "did not work";
-		long hour = ((long)time);
-		int carryHour = (int)((time-(long)time)*100/60);
-		double min = (time-(long)time)%0.6;
+		long hour = ((long) time);
+		int carryHour = (int) ((time - (long) time) * 100 / 60);
+		double min = (time - (long) time) % 0.6;
 		hour = hour + carryHour;
-		
-		String[]dayToYear= new String[4];
-		long year = hour/8760;
-		hour -= year*8760;
-		long month = hour/730;
-		hour -= month*730;
-		long week = hour/168;
-		hour -= week*168;
-		long day = hour/24;
-		hour -= day*24;
-		
-		
-		dayToYear[0]= year+"Years ";//year 
-		dayToYear[1]= month+"Months ";//month
-		dayToYear[2]= week+"Weeks ";//week
-		dayToYear[3]= day+"Days ";//week
-		timeAsClock="";
-		
+
+		String[] dayToYear = new String[4];
+		long year = hour / 8760;
+		hour -= year * 8760;
+		long month = hour / 730;
+		hour -= month * 730;
+		long week = hour / 168;
+		hour -= week * 168;
+		long day = hour / 24;
+		hour -= day * 24;
+
+		dayToYear[0] = year + "Years ";// year
+		dayToYear[1] = month + "Months ";// month
+		dayToYear[2] = week + "Weeks ";// week
+		dayToYear[3] = day + "Days ";// week
+		timeAsClock = "";
+
 		for (int i = 0; i < dayToYear.length; i++) {
-			if (dayToYear[i].charAt(0)!='0') {
+			if (dayToYear[i].charAt(0) != '0') {
 				timeAsClock += dayToYear[i];
 			}
 		}
-		
-		
-		
-		
-		if ((int)(min*100)<10) {
-			timeAsClock += hour%24 + ":0" + (int)(min*100) +"h";
-		}else {
-			timeAsClock += hour%24 + ":" + (int)(min*100) +"h";
+
+		if ((int) (min * 100) < 10) {
+			timeAsClock += hour % 24 + ":0" + (int) (min * 100) + "h";
+		} else {
+			timeAsClock += hour % 24 + ":" + (int) (min * 100) + "h";
 		}
 		return timeAsClock;
 	}
