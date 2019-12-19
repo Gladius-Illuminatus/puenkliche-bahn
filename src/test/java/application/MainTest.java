@@ -4,10 +4,10 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-class MainTest extends Main {
+public class MainTest extends Main {
 
 	@Test
-	void test() {
+	public void test() {
 		//setting up an array to test
 		String array [] = {
 				"0","1","2"
